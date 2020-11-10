@@ -26,6 +26,7 @@ public class ReactiveScraping {
             document = getDocument(url);
             String title = document.title();
             String description = getDescription(document);
+
             String imageUrl = document.select("img").first().absUrl("src");
             linkInfo = new LinkInfo(title, description, imageUrl, url);
 
