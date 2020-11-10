@@ -41,6 +41,12 @@ public class ReactiveEditText extends androidx.appcompat.widget.AppCompatEditTex
     }
 
     private String getEnteredUrl(String data) {
+        // edfewd erewr
+        /*
+        reresfsdf
+        sdfsdfsd
+        dsf
+         */
         return "";
     }
 
