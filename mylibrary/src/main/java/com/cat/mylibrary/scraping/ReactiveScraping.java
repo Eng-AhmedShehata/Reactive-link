@@ -17,8 +17,6 @@ import java.util.List;
 public class ReactiveScraping {
 
     public static LinkInfo getLinkInfo(String url) {
-        // TODO setup jsoup object then pass the link to it and return the result
-
         Document document = null;
         LinkInfo linkInfo = null;
         try {
@@ -27,7 +25,7 @@ public class ReactiveScraping {
             String title = document.title();
             String description = getDescription(document);
 
-            String imageUrl = document.select("img").first().absUrl("src");
+            String imageUrl = getImageUrl(document);
             linkInfo = new LinkInfo(title, description, imageUrl, url);
 
         } catch (IOException e) {
@@ -35,6 +33,19 @@ public class ReactiveScraping {
         }
 
         return linkInfo;
+    }
+
+    private static String getImageUrl(Document document) {
+        String imageUrl = "";
+
+        for (Element e : document.select("img")) {
+            if (!e.attr("src").isEmpty()) {
+                imageUrl = e.attr("src");
+                break;
+            }
+        }
+//        document.select("img").first().absUrl("src");
+        return imageUrl;
     }
 
     private static String getDescription(Document document) {

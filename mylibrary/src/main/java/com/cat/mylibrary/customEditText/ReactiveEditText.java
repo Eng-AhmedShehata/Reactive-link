@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
+import com.cat.mylibrary.helper.HelperLink;
 import com.cat.mylibrary.models.LinkInfo;
 import com.cat.mylibrary.scraping.ReactiveScraping;
 
@@ -26,11 +27,9 @@ public class ReactiveEditText extends androidx.appcompat.widget.AppCompatEditTex
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String data = charSequence.toString();
-                // TODO(omar & mariem) ADD method to extract url from the entered text
                 if (!getEnteredUrl(data).isEmpty()) {
                     String url = getEnteredUrl(data);
-                    LinkInfo linkInfo = ReactiveScraping.getLinkInfo(url);
-                    getReactiveResult.getResult(linkInfo);
+                    sendResult(url);
                 }
             }
 
@@ -40,19 +39,22 @@ public class ReactiveEditText extends androidx.appcompat.widget.AppCompatEditTex
         });
     }
 
+    private void sendResult(String url) {
+        LinkInfo linkInfo = ReactiveScraping.getLinkInfo(url);
+        if (linkInfo != null) {
+            getReactiveResult.getResult(linkInfo);
+        } else
+            getReactiveResult.noPreview();
+    }
+
     private String getEnteredUrl(String data) {
-        // edfewd erewr
-        /*
-        reresfsdf
-        sdfsdfsd
-        dsf
-         */
-        return "";
+        return HelperLink.getUrlFromText(data);
     }
 
 
     public interface GetReactiveResult {
         void getResult(LinkInfo linkInfo);
+        void noPreview();
     }
 
 

@@ -21,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
             public void getResult(LinkInfo linkInfo) {
                 // TODO Ahmed (Display image and title)
             }
+
+            @Override
+            public void noPreview() {
+
+            }
         });
 
         // TODO Here, we test our library like individual project
